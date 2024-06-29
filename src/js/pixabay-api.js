@@ -1,70 +1,25 @@
-import iziToast from  "izitoast" ;
-import "izitoast/dist/css/iziToast.min.css";
-import { displayImages, clearImages } from "./render-functions";
+'use strict';
 import axios from "axios";
 
-const loader = document.querySelector('.loader');
-function showLoader() {
-  loader.classList.remove('hidden')  
-}
-
-function hideLoader() {
-   loader.classList.add('hidden') 
-}
-const apiKey = '44406774-b6929e0ee65f9835201f12742';
-
-showLoader();
-export default async function getImages(userInput, currentPage = 1, showLoadMore, hideLoadMore, showEndMessage) {
-    const BASE_URL = 'https://pixabay.com/';
-    const END_POINT = 'api/';
-    const params = new URLSearchParams({
-        key: apiKey,
-        q: userInput,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        per_page: 15,
-        page: currentPage,
-
-    });
-    const url = `${BASE_URL}${END_POINT}?${params}`;
-    
-    
-
+export async function getImages(request, page, per_page) {
     try {
-        const response = await axios.get(url);
-        const data = response.data;
+        const imagesApi = axios.create({
+            baseURL: 'https://pixabay.com',
+        })   
+           const res = await imagesApi.get('/api/', {
+               params: {
+                key: '44319460-4af2fb7eeaa8b0840083a4a49',
+                q: request,
+                image_type: 'photo',
+                orientation: 'horizontal',
+                safesearch: true,
+                page: page,
+                per_page: per_page,
+            }
+           })
             
-        if (data.hits.length === 0) {
-             if (currentPage === 1) {
-                clearImages();
-            }
-            iziToast.error({
-                title: 'Error',
-                message: 'Sorry, there are no images matching your search query. Please try again!',
-            });
-            hideLoadMore();
-        } else {
-            displayImages(data.hits, currentPage);
-            if (data.totalHits > currentPage * 15) {
-                showLoadMore(); 
-            } else {
-                hideLoadMore(); 
-                showEndMessage();
-            }
-        }
-    
+             return res.data;
     } catch (error) {
-        iziToast.error({
-            title: 'Error',
-            message: 'An error occurred while fetching images. Please try again!',
-        });
-        hideLoadMore();
-    } finally {
-        hideLoader();
-    }
-        
+        console.log(enterError('','api get error'));
+    };
 }
-
-
-
