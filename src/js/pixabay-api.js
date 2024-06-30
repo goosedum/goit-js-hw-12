@@ -1,25 +1,15 @@
-'use strict';
-import axios from "axios";
+import axios from 'axios';
 
-export async function getImages(request, page, per_page) {
-    try {
-        const imagesApi = axios.create({
-            baseURL: 'https://pixabay.com',
-        })   
-           const res = await imagesApi.get('/api/', {
-               params: {
-                key: '44319460-4af2fb7eeaa8b0840083a4a49',
-                q: request,
-                image_type: 'photo',
-                orientation: 'horizontal',
-                safesearch: true,
-                page: page,
-                per_page: per_page,
-            }
-           })
-            
-             return res.data;
-    } catch (error) {
-        console.log(enterError('','api get error'));
-    };
+const API_KEY = '44324490-53902a9aa3f8bdbab535f7eec';
+const BASE_URL = 'https://pixabay.com/api/';
+
+export async function fetchImages(query, page = 1, perPage = 15) {
+  const url = `${BASE_URL}?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${perPage}`;
+
+  const response = await axios.get(url);
+  if (response.status !== 200) {
+    throw new Error('Failed to fetch images');
+  }
+
+  return response.data;
 }

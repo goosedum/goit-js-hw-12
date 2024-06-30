@@ -1,40 +1,32 @@
-'use strict';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
-const refs = {
-imageSearchForm: document.querySelector('.search-form'),
-imageSearchInput: document.querySelector('.search-input'),
-submitButton: document.querySelector('.search-btn'),
-imageList: document.querySelector('.images-list'),
+const gallery = document.querySelector('.gallery');
+
+export function clearGallery() {
+  gallery.innerHTML = '';
 }
 
-function imagesTemplate(image) {
+export function renderImages(images) {
+  const markup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+    <div class="photo-card">
+      <a href="${largeImageURL}" class="gallery__item">
+        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+      </a>
+      <div class="info">
+        <p class="info-item"><b>Likes</b> ${likes}</p>
+        <p class="info-item"><b>Views</b> ${views}</p>
+        <p class="info-item"><b>Comments</b> ${comments}</p>
+        <p class="info-item"><b>Downloads</b> ${downloads}</p>
+      </div>
+    </div>
+  `).join('');
 
-    return `<li class="images-list-item">
-  <a class="img-link" href=${image.largeImageURL} onclick="event.preventDefault()"><img class="img" src=${image.webformatURL} alt=${image.tags}></img></a>
-   <ul class="img-dscr">
-      <li class="img-data">
-        <p class="img-data-title">Likes</p>
-        <p class="img-data-numbers">${image.likes}</p>
-      </li>
-      <li class="img-data">
-        <p class="img-data-title">Views</p>
-        <p class="img-data-numbers">${image.views}</p>
-      </li>
-      <li class="img-data">
-        <p class="img-data-title">Comments</p>
-        <p class="img-data-numbers">${image.comments}</p>
-      </li>
-      <li class="img-data">
-        <p class="img-data-title">Downloads</p>
-        <p class="img-data-numbers">${image.downloads}</p>
-      </li>
-    </ul>
-</li>`;
-  }
-   
-    export function renderImages(images) {
-      return images.map(imagesTemplate).join('\n');   
-    }
-   
+  gallery.insertAdjacentHTML('beforeend', markup);
 
-
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+  lightbox.refresh();
+}
