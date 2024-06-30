@@ -55,6 +55,7 @@ refs.imageSearchForm.addEventListener('submit', async e => {
     const data = await getImages(request, page, per_page);
      if (data.hits.length === 0) {
          refs.imageList.innerHTML = '';
+         checkBtnStatus();
          hideLoader();
             return iziToast.error({
                 message: 'Sorry, there are no images matching your search query. Please try again!',
