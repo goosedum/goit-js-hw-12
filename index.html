@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/goit-js-hw-12/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Search App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     
-    <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-b0d10f48.js">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-1cd1f9d9.css">
-    <link rel="stylesheet" href="/goit-js-hw-12/assets/index-88093dbb.css">
-  </head>
-  <body>
-    <form id="search-form">
-      <input type="text" placeholder="Search images..." required />
-      <button type="submit">Search</button>
+  <script type="module" crossorigin src="/goit-js-hw-12/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-c493984e.js">
+  <link rel="stylesheet" href="/goit-js-hw-12/assets/vendor-1cd1f9d9.css">
+  <link rel="stylesheet" href="/goit-js-hw-12/assets/index-94dfdbf6.css">
+</head>
+<body>
+    <form>
+        <input type="text" placeholder="Search images...">
+        <button type="submit">Search</button>
     </form>
-    <div class="gallery"></div>
-    <button id="load-more" class="hidden">Load more</button>
-    <div id="loader" class="loader hidden"></div>
+
+    <!-- <p class="loader ">Loading images, please wait...</p> -->
     
-  </body>
+    <div id="imageResults" class="gallery"></div>
+    <div class="loader-container"><span class="loader hidden"></span></div>
+    <div>
+        <button type="button" class="hidden">
+            <span>Load more</span>
+        </button>
+    </div>
+    
+</body>
 </html>
