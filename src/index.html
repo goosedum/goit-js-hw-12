@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image Search App</title>
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <form id="search-form">
-      <input type="text" placeholder="Search images..." required />
-      <button type="submit">Search</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <form>
+        <input type="text" placeholder="Search images...">
+        <button type="submit">Search</button>
     </form>
-    <div class="gallery"></div>
-    <button id="load-more" class="hidden">Load more</button>
-    <div id="loader" class="loader hidden"></div>
-    <script type="module" src="./main.js"></script>
-  </body>
+
+    <!-- <p class="loader ">Loading images, please wait...</p> -->
+    
+    <div id="imageResults" class="gallery"></div>
+    <div class="loader-container"><span class="loader hidden"></span></div>
+    <div>
+        <button type="button" class="hidden">
+            <span>Load more</span>
+        </button>
+    </div>
+    <script src="./main.js" type="module"></script>
+</body>
 </html>
